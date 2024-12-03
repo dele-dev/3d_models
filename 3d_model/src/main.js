@@ -38,7 +38,7 @@ const height_ = window.innerHeight;
 const camera = new THREE.PerspectiveCamera(35,
   width_/height_,
   0.1,
-  30
+  35
 );
 
 camera.position.z = 5 ;
@@ -53,14 +53,26 @@ const renderer =   new THREE.WebGLRenderer({
   canvas : canvas 
 });
 
+renderer.setSize(width_,height_);
+
 
 //instantiate the controls
 const controls = new OrbitControls(camera,canvas);
+controls.enableDamping = true;
+controls.autoRotate = true;
 
-renderer.setSize(width_,height_);
+function renderLoop () {
 
-// render the scene together with the camera
-renderer.render(scene,camera);
+  controls.update();
+  
+  // render the scene together with the camera
+  renderer.render(scene,camera);
+
+  window.requestAnimationFrame(renderLoop);
+
+}
+
+renderLoop();
 
 
 console.log(scene,roundMesh)
