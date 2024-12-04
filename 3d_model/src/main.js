@@ -12,7 +12,11 @@ const scene = new THREE.Scene();
 
 // create geometyry and mesh
 
-// const cubeGeometry = new THREE.BoxGeometry(1,1,1);
+// const cubeGeometry = new THREE.BoxGeometry(1,1,1,2,2,2);
+// const cubeGeometry = new THREE.SphereGeometry(1,16,16);
+const cubeGeometry = new THREE.TorusKnotGeometry(15,3,100,16);
+
+
 
 // create custome geometry
 const vertices = new Float32Array([
@@ -36,7 +40,7 @@ const circleMaterial = new THREE.MeshBasicMaterial(
 
 // create Mesh 
 const cubeMesh = new THREE.Mesh(
-  geometry,
+  cubeGeometry,
   circleMaterial
 );
 
@@ -77,10 +81,10 @@ scene.add(axesHelper);
 
 
 // initialize the camera
-const camera = new THREE.PerspectiveCamera(35,
+const camera = new THREE.PerspectiveCamera(45,
   width_/height_,
-  0.1,
-  35
+  0.12,
+  45
 );
 
 // const aspectRatio = width_/height_;
