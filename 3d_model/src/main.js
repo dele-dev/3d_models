@@ -12,40 +12,57 @@ const scene = new THREE.Scene();
 
 // create geometyry and mesh
 
-const cubeGeometry = new THREE.BoxGeometry(1,1,1);
+// const cubeGeometry = new THREE.BoxGeometry(1,1,1);
+
+// create custome geometry
+const vertices = new Float32Array([
+  0,0,0,
+  0,2,0,
+  2,0,0
+]);
+
+const bufferAttribute = new THREE.BufferAttribute(vertices,3);
+
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute('position', bufferAttribute);
+
+
 const circleMaterial = new THREE.MeshBasicMaterial(
   {
     color:"red",
+    wireframe:true
   }
 );
 
 // create Mesh 
-const roundMesh = new THREE.Mesh(
-  cubeGeometry,
+const cubeMesh = new THREE.Mesh(
+  geometry,
   circleMaterial
 );
 
-const roundMesh1 = new THREE.Mesh(
-  cubeGeometry,
-  circleMaterial
-);
-roundMesh1.position.x = 2;
+// cubeMesh.rotation.x = THREE.MathUtils.degToRad(90);
 
-const roundMesh2 = new THREE.Mesh(
-  cubeGeometry,
-  circleMaterial
-);
-roundMesh2.position.x = -2;
+// const cubeMesh1 = new THREE.Mesh(
+//   cubeGeometry,
+//   circleMaterial
+// );
+// cubeMesh1.position.x = 2;
+
+// const cubeMesh2 = new THREE.Mesh(
+//   cubeGeometry,
+//   circleMaterial
+// );
+// cubeMesh2.position.x = -2;
 
 // add mesh to scene
-const group = new THREE.Group();
-group.add(roundMesh);
-group.add(roundMesh1);
-group.add(roundMesh2);
+// const group = new THREE.Group();
+// group.add(cubeMesh);
+// group.add(cubeMesh1);
+// group.add(cubeMesh2);
 
-group.position.y = 2
+//group.position.y = 2
 
-scene.add(group)
+scene.add(cubeMesh)
 
 
 // get width and height of the window
@@ -107,14 +124,23 @@ window.addEventListener('resize', () =>{
 
 });
 
+// initiate the clock
+const clock = new THREE.Clock();
+let previousTime = 0;
+
 // render scence
 function renderLoop () {
+  const currentTime = clock.getElapsedTime();
+  const delta = currentTime - previousTime ;
+
+  previousTime = currentTime ;
+
+  cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 20 ;
 
   controls.update();
 
   // render the scene together with the camera
   renderer.render(scene,camera);
-
   window.requestAnimationFrame(renderLoop);
 
 }
@@ -122,4 +148,4 @@ function renderLoop () {
 renderLoop();
 
 
-console.log(scene,roundMesh)
+console.log(scene,cubeMesh)
