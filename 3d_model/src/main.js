@@ -12,10 +12,11 @@ const scene = new THREE.Scene();
 
 // create geometyry and mesh
 
+const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 // const cubeGeometry = new THREE.BoxGeometry(1,1,1,2,2,2);
-// const cubeGeometry = new THREE.SphereGeometry(1,16,16);
-const cubeGeometry = new THREE.TorusKnotGeometry(15,3,100,16);
-
+// const cubeGeometry = new THREE.SphereGeometry(1,1 6,16);
+//  const cubeGeometry = new THREE.TorusKnotGeometry();
+ 
 
 
 // create custome geometry
@@ -31,26 +32,35 @@ const geometry = new THREE.BufferGeometry();
 geometry.setAttribute('position', bufferAttribute);
 
 
-const circleMaterial = new THREE.MeshBasicMaterial(
+const cubeMaterial = new THREE.MeshBasicMaterial(
   {
-    color:"red",
-    wireframe:true
+    color: 0x00ff00,
+    transparent: true,
+    opacity:0.5
   }
 );
+
+// const circleMaterial = new THREE.MeshBasicMaterial(
+//   {
+//     color:"red",
+//     wireframe:true
+//   }
+// );
 
 // create Mesh 
 const cubeMesh = new THREE.Mesh(
   cubeGeometry,
-  circleMaterial
+  cubeMaterial
 );
 
 // cubeMesh.rotation.x = THREE.MathUtils.degToRad(90);
 
-// const cubeMesh1 = new THREE.Mesh(
-//   cubeGeometry,
-//   circleMaterial
-// );
-// cubeMesh1.position.x = 2;
+const cubeMesh1 = new THREE.Mesh(
+  cubeGeometry,
+  cubeMaterial
+);
+
+cubeMesh1.position.x = 1.5;
 
 // const cubeMesh2 = new THREE.Mesh(
 //   cubeGeometry,
@@ -65,8 +75,16 @@ const cubeMesh = new THREE.Mesh(
 // group.add(cubeMesh2);
 
 //group.position.y = 2
+cubeMaterial.side = THREE.FrontSide;
+cubeMaterial.fog =false;
 
+const fog = new THREE.Fog(0xffffff,1,10);
+
+
+scene.background = new THREE.Color("white");
+scene.fog =fog;
 scene.add(cubeMesh)
+scene.add(cubeMesh1)
 
 
 // get width and height of the window
@@ -75,8 +93,8 @@ const height_ = window.innerHeight;
 
 
 // add axies helper
-const axesHelper = new THREE.AxesHelper(2);
-scene.add(axesHelper);
+// const axesHelper = new THREE.AxesHelper(2);
+// scene.add(axesHelper);
 
 
 
