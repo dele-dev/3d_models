@@ -1,5 +1,10 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { Pane } from "tweakpane";
+
+
+// shining light effect to the code
+// and adding pane 
 
 
 /***
@@ -8,6 +13,9 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
  *  
  *  */ 
 const scene = new THREE.Scene();
+
+//initialize the pane
+const pane = new Pane();
 
 
 // create geometyry and mesh
@@ -20,16 +28,16 @@ const planeGeometry = new THREE.PlaneGeometry(1,1);
 const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15, 100, 16);
 
 // create custome geometry
-const vertices = new Float32Array([
-  0,0,0,
-  0,2,0,
-  2,0,0
-]);
+// const vertices = new Float32Array([
+//   0,0,0,
+//   0,2,0,
+//   2,0,0
+// ]);
 
-const bufferAttribute = new THREE.BufferAttribute(vertices,3);
+// const bufferAttribute = new THREE.BufferAttribute(vertices,3);
 
-const geometry = new THREE.BufferGeometry();
-geometry.setAttribute('position', bufferAttribute);
+// const geometry = new THREE.BufferGeometry();
+// geometry.setAttribute('position', bufferAttribute);
 
 
 // const cubeMaterial = new THREE.MeshBasicMaterial(
@@ -40,7 +48,18 @@ geometry.setAttribute('position', bufferAttribute);
 //   }
 // );
 
-const cubeMaterial = new THREE.MeshLambertMaterial();
+const cubeMaterial = new THREE.MeshPhongMaterial(); // shining light effect to the code
+cubeMaterial.shininess = 90;
+
+const PARAMS = {
+  min : 0,
+  max: 100,
+  step: 1
+}
+
+
+pane.addBinding(cubeMaterial, "shininess",PARAMS);
+
 
 // const circleMaterial = new THREE.MeshBasicMaterial(
 //   {
@@ -77,8 +96,8 @@ plane.position.x = -1.5;
 // group.add(cubeMesh2);
 
 //group.position.y = 2
-cubeMaterial.side = THREE.FrontSide;
-cubeMaterial.fog =false;
+// cubeMaterial.side = THREE.FrontSide;
+// cubeMaterial.fog =false;
 
 // const fog = new THREE.Fog(0xffffff,1,10);
 // scene.background = new THREE.Color("black");
@@ -93,8 +112,8 @@ const light = new THREE.AmbientLight(0xffffff, 0.2) ;
 scene.add(light);
 
 //  create point light
-const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(5,5 ,5);
+const pointLight = new THREE.PointLight(0xffffff, 0.3);
+pointLight.position.set(5,5,5);
 scene.add(pointLight);
 
 // get width and height of the window
