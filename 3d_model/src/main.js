@@ -3,8 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 
-// shining light effect to the code
-// and adding pane 
+// added camera to scene & remove commented codes 
 
 
 /***
@@ -21,35 +20,13 @@ const pane = new Pane();
 // create geometyry and mesh
 
 const cubeGeometry = new THREE.BoxGeometry(1,1,1);
-// const cubeGeometry = new THREE.BoxGeometry(1,1,1,2,2,2);
-// const cubeGeometry = new THREE.SphereGeometry(1,1 6,16);
-//  const cubeGeometry = new THREE.TorusKnotGeometry();
 const planeGeometry = new THREE.PlaneGeometry(1,1);
 const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15, 100, 16);
 
-// create custome geometry
-// const vertices = new Float32Array([
-//   0,0,0,
-//   0,2,0,
-//   2,0,0
-// ]);
-
-// const bufferAttribute = new THREE.BufferAttribute(vertices,3);
-
-// const geometry = new THREE.BufferGeometry();
-// geometry.setAttribute('position', bufferAttribute);
-
-
-// const cubeMaterial = new THREE.MeshBasicMaterial(
-//   {
-//     color: 0xffffff,
-//     transparent: true,
-//     opacity:0.5
-//   }
-// );
 
 const cubeMaterial = new THREE.MeshPhongMaterial(); // shining light effect to the code
 cubeMaterial.shininess = 90;
+cubeMaterial.color = new THREE.Color('red');
 
 const PARAMS = {
   min : 0,
@@ -61,12 +38,6 @@ const PARAMS = {
 pane.addBinding(cubeMaterial, "shininess",PARAMS);
 
 
-// const circleMaterial = new THREE.MeshBasicMaterial(
-//   {
-//     color:"red",
-//     wireframe:true
-//   }
-// );
 
 // create Mesh 
 const cubeMesh = new THREE.Mesh(
@@ -89,20 +60,6 @@ const plane = new THREE.Mesh(
 );
 plane.position.x = -1.5;
 
-// add mesh to scene
-// const group = new THREE.Group();
-// group.add(cubeMesh);
-// group.add(cubeMesh1);
-// group.add(cubeMesh2);
-
-//group.position.y = 2
-// cubeMaterial.side = THREE.FrontSide;
-// cubeMaterial.fog =false;
-
-// const fog = new THREE.Fog(0xffffff,1,10);
-// scene.background = new THREE.Color("black");
-// scene.fog =fog;
-
 scene.add(cubeMesh);
 scene.add(cubeMesh1);
 scene.add(plane);
@@ -120,13 +77,6 @@ scene.add(pointLight);
 const width_ = window.innerWidth;
 const height_ = window.innerHeight;
 
-
-// add axies helper
-// const axesHelper = new THREE.AxesHelper(2);
-// scene.add(axesHelper);
-
-
-
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(45,
   width_/height_,
@@ -134,21 +84,10 @@ const camera = new THREE.PerspectiveCamera(45,
   45
 );
 
-// const aspectRatio = width_/height_;
-
-// const camera = new THREE.OrthographicCamera(
-//   -1 * aspectRatio,
-//   1 * aspectRatio,
-//   1,
-//   -1,
-//   0.1,
-//   200
-// );
-
 camera.position.z = 5 ;
 
 // add camera to scene
-//scene.add(camera);
+scene.add(camera);
 
 // create render
 const canvas = document.querySelector("canvas.threejs");
