@@ -3,7 +3,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 
-// added camera to scene & remove commented codes 
+// mesh standard & Mesh physical Materials
+ 
 
 
 /***
@@ -24,18 +25,31 @@ const planeGeometry = new THREE.PlaneGeometry(1,1);
 const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15, 100, 16);
 
 
-const cubeMaterial = new THREE.MeshPhongMaterial(); // shining light effect to the code
-cubeMaterial.shininess = 90;
-cubeMaterial.color = new THREE.Color('red');
+// initialize the material
+// const cubeMaterial = new THREE.MeshStandardMaterial();
+const cubeMaterial = new THREE.MeshPhysicalMaterial();
+cubeMaterial.color = new THREE.Color('green');
 
-const PARAMS = {
-  min : 0,
-  max: 100,
-  step: 1
-}
-
-
-pane.addBinding(cubeMaterial, "shininess",PARAMS);
+pane.addBinding(cubeMaterial,"metalness",{
+  min: 0,
+  max: 1,
+  step: 0.01
+})
+pane.addBinding(cubeMaterial,"roughness",{
+  min: 0,
+  max: 1,
+  step: 0.01
+})
+pane.addBinding(cubeMaterial,"reflectivity",{
+  min: 0,
+  max: 1,
+  step: 0.01
+})
+pane.addBinding(cubeMaterial,"clearcoat",{
+  min: 0,
+  max: 1,
+  step: 0.01
+})
 
 
 
@@ -65,11 +79,11 @@ scene.add(cubeMesh1);
 scene.add(plane);
 
 // initialize the light
-const light = new THREE.AmbientLight(0xffffff, 0.2) ;
+const light = new THREE.AmbientLight(0xffffff, 0.4) ;
 scene.add(light);
 
 //  create point light
-const pointLight = new THREE.PointLight(0xffffff, 0.3);
+const pointLight = new THREE.PointLight(0xffffff, 0.9);
 pointLight.position.set(5,5,5);
 scene.add(pointLight);
 
