@@ -3,7 +3,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 
-// mesh standard & Mesh physical Materials
+// set up
+// And the texture
  
 
 
@@ -14,6 +15,9 @@ import { Pane } from "tweakpane";
  *  */ 
 const scene = new THREE.Scene();
 
+// initialize loader
+const textureLoader = new THREE.TextureLoader();
+
 //initialize the pane
 const pane = new Pane();
 
@@ -23,35 +27,20 @@ const pane = new Pane();
 const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 const planeGeometry = new THREE.PlaneGeometry(1,1);
 const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15, 100, 16);
+const spareGeometry = new THREE.SphereGeometry(0.5,32,32);
+const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5,1,32);
 
+
+// initialize the texture
+const textureTest = textureLoader.load("/testures/page-header-bg-1-1.jpg");
 
 // initialize the material
 // const cubeMaterial = new THREE.MeshStandardMaterial();
-const cubeMaterial = new THREE.MeshPhysicalMaterial();
-cubeMaterial.color = new THREE.Color('green');
+const cubeMaterial = new THREE.MeshBasicMaterial();
+ cubeMaterial.map =  textureTest
 
-pane.addBinding(cubeMaterial,"metalness",{
-  min: 0,
-  max: 1,
-  step: 0.01
-})
-pane.addBinding(cubeMaterial,"roughness",{
-  min: 0,
-  max: 1,
-  step: 0.01
-})
-pane.addBinding(cubeMaterial,"reflectivity",{
-  min: 0,
-  max: 1,
-  step: 0.01
-})
-pane.addBinding(cubeMaterial,"clearcoat",{
-  min: 0,
-  max: 1,
-  step: 0.01
-})
-
-
+//initialize a group
+const group = new THREE.Group();
 
 // create Mesh 
 const cubeMesh = new THREE.Mesh(
@@ -74,9 +63,20 @@ const plane = new THREE.Mesh(
 );
 plane.position.x = -1.5;
 
-scene.add(cubeMesh);
-scene.add(cubeMesh1);
-scene.add(plane);
+const sphere = new THREE.Mesh();
+sphere.geometry = spareGeometry;
+sphere.material = cubeMaterial
+sphere.position.y = 1.5 
+
+const cylinder = new THREE.Mesh();
+cylinder.geometry = cylinderGeometry;
+cylinder.material = cubeMaterial;
+cylinder.position.y = -1.5
+
+
+// add to scene
+group.add(cubeMesh,cubeMesh1,plane,sphere,cylinder);
+scene.add(group);
 
 // initialize the light
 const light = new THREE.AmbientLight(0xffffff, 0.4) ;
@@ -134,15 +134,14 @@ let previousTime = 0;
 
 // render scence
 function renderLoop () {
-  const currentTime = clock.getElapsedTime();
-  const delta = currentTime - previousTime ;
 
-  previousTime = currentTime ;
-
-  cubeMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta * 20 ;
-
+  group.children.forEach(child => {
+    if(child instanceof THREE.Mesh){
+      child.rotation.y += 0.01;
+    }
+  })
+  
   controls.update();
-
   // render the scene together with the camera
   renderer.render(scene,camera);
   window.requestAnimationFrame(renderLoop);
