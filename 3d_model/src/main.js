@@ -3,7 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 
-// Maps : anbian-inclussiomn
+// Introduction to solar system using three js
 
 
 
