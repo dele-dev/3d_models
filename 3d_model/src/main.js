@@ -32,12 +32,13 @@ const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5,1,32);
 
 
 // initialize the texture
-const textureTest = textureLoader.load("/testures/page-header-bg-1-1.jpg");
+const textureTest = textureLoader.load("/testures/14.PNG");
 
 // initialize the material
 // const cubeMaterial = new THREE.MeshStandardMaterial();
 const cubeMaterial = new THREE.MeshBasicMaterial();
  cubeMaterial.map =  textureTest
+//  cubeMaterial.color = new THREE.Color('red');
 
 //initialize a group
 const group = new THREE.Group();
@@ -62,6 +63,7 @@ const plane = new THREE.Mesh(
   cubeMaterial
 );
 plane.position.x = -1.5;
+plane.rotation.x = Math.PI * 0.5;
 
 const sphere = new THREE.Mesh();
 sphere.geometry = spareGeometry;
@@ -75,7 +77,9 @@ cylinder.position.y = -1.5
 
 
 // add to scene
-group.add(cubeMesh,cubeMesh1,plane,sphere,cylinder);
+// group.add(cubeMesh,cubeMesh1,plane,sphere,cylinder);
+group.add(plane);
+
 scene.add(group);
 
 // initialize the light
@@ -116,8 +120,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 //instantiate the controls
 const controls = new OrbitControls(camera,canvas);
-controls.enableDamping = true;
-controls.autoRotate = true;
+// controls.enableDamping = true;
+// controls.autoRotate = true;
 
 // resive window
 window.addEventListener('resize', () =>{
@@ -135,11 +139,11 @@ let previousTime = 0;
 // render scence
 function renderLoop () {
 
-  group.children.forEach(child => {
-    if(child instanceof THREE.Mesh){
-      child.rotation.y += 0.01;
-    }
-  })
+  // group.children.forEach(child => {
+  //   if(child instanceof THREE.Mesh){
+  //     child.rotation.y += 0.01;
+  //   }
+  // })
   
   controls.update();
   // render the scene together with the camera
