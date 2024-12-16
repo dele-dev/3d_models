@@ -3,7 +3,9 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 
-// texture offset
+// Maps 
+// add multiple texttures
+
  
 
 
@@ -31,33 +33,28 @@ const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5,1,32);
 
 
 // initialize the texture
-// const grassTexture = textureLoader.load("/testures/14.PNG"); // try another texture
-const grassTexture = textureLoader.load("/testures/13.PNG"); // try another texture
+const grassTexture = textureLoader.load("/testures/14.PNG"); // try another texture
+// const grassTexture1 = textureLoader.load("/testures/12.PNG"); // try another texture
+// const grassTexture2 = textureLoader.load("/testures/13.PNG"); // try another texture
+const grassTextureAmbientOcclusion = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_ambientOcclusion.png"); // try another texture
+const grassTextureRoughness = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_roughness.png"); // try another texture
+const grassTextureMetallic= textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_metallic.png"); // try another texture
+const grassTextureBase = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_basecolor.png"); // try another texture
+const grassTextureHeight = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_height.png"); // try another texture
+// const grassTexture = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_normal.png"); // try another texture
 
-grassTexture.repeat.set(2,2)
-// grassTexture.wrapS = THREE.RepeatWrapping
-grassTexture.wrapS = THREE.RepeatWrapping
-grassTexture.wrapT = THREE.RepeatWrapping
 
-// offset
-grassTexture.offset.x= 0.5
-pane.addBinding(grassTexture,"offset", {
-  x:{
-    min:0,
-    max:1,
-    step: 1
-  },
-  y: {
-    min:0,
-    max:1,
-    step: 0.001
-  }
-})
+
 
 // initialize the material
-// const cubeMaterial = new THREE.MeshStandardMaterial();
-const cubeMaterial = new THREE.MeshBasicMaterial();
+const cubeMaterial = new THREE.MeshStandardMaterial();
+// const cubeMaterial = new THREE.MeshBasicMaterial();
  cubeMaterial.map =  grassTexture
+cubeMaterial.roughnessMap = grassTextureRoughness
+cubeMaterial.roughness = 1
+
+cubeMaterial.metalnessMap =  grassTextureMetallic
+cubeMaterial.metalness = 1
 //  cubeMaterial.color = new THREE.Color('red');
 
 //initialize a group
@@ -83,8 +80,6 @@ const plane = new THREE.Mesh(
   cubeMaterial
 );
 plane.position.x = -1.5;
-plane.rotation.x = -(Math.PI * 0.5);
-plane.scale.set(1000,1000)
 
 const sphere = new THREE.Mesh();
 sphere.geometry = spareGeometry;
@@ -98,8 +93,8 @@ cylinder.position.y = -1.5
 
 
 // add to scene
-// group.add(cubeMesh,cubeMesh1,plane,sphere,cylinder);
-group.add(plane);
+group.add(cubeMesh,cubeMesh1,plane,sphere,cylinder);
+// group.add(plane);
 
 scene.add(group);
 
@@ -161,11 +156,11 @@ let previousTime = 0;
 // render scence
 function renderLoop () {
 
-  // group.children.forEach(child => {
-  //   if(child instanceof THREE.Mesh){
-  //     child.rotation.y += 0.01;
-  //   }
-  // })
+  group.children.forEach(child => {
+    if(child instanceof THREE.Mesh){
+      child.rotation.y += 0.01;
+    }
+  })
   
   controls.update();
   // render the scene together with the camera
