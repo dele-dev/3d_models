@@ -36,10 +36,28 @@ const sun = new THREE.Mesh(
   sphereGeometry,
   sunMaterial
 )
+sun.scale.setScalar(5);
+
+
+
+// add Earth to the scene
+const earthMaterial = new THREE.MeshBasicMaterial(
+  {
+    color:"blue"
+  }
+);
+
+const earth = new THREE.Mesh(
+  sphereGeometry,
+  earthMaterial
+);
+earth.position.x = 10
 
 
 // add sun to scene
+// add earth to scene
 scene.add(sun);
+scene.add(earth);
 
 // const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 // const uv2 = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
