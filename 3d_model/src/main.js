@@ -54,10 +54,27 @@ const earth = new THREE.Mesh(
 earth.position.x = 10
 
 
+
+const moonMaterial = new THREE.MeshBasicMaterial(
+  {
+    color: "grey"
+  }
+)
+
+
+const moon = new THREE.Mesh(
+  sphereGeometry,
+  moonMaterial
+)
+moon.scale.setScalar
+moon.position.x = 13
+
 // add sun to scene
 // add earth to scene
+// add moon to scene
 scene.add(sun);
 scene.add(earth);
+scene.add(moon);
 
 // const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 // const uv2 = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
@@ -261,4 +278,4 @@ function renderLoop () {
 renderLoop();
 
 
-console.log(scene,cubeMesh)
+console.log(scene,sun)
