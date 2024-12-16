@@ -3,10 +3,9 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 
-// Maps 
-// add multiple texttures
+// Maps : Normal map
+// Hieght Map
 
- 
 
 
 /***
@@ -41,7 +40,7 @@ const grassTextureRoughness = textureLoader.load("/testures/3d_model/Stylized_Wo
 const grassTextureMetallic= textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_metallic.png"); // try another texture
 const grassTextureBase = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_basecolor.png"); // try another texture
 const grassTextureHeight = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_height.png"); // try another texture
-// const grassTexture = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_normal.png"); // try another texture
+const grassTextureNormal = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_normal.png"); // try another texture
 
 
 
@@ -55,6 +54,12 @@ cubeMaterial.roughness = 1
 
 cubeMaterial.metalnessMap =  grassTextureMetallic
 cubeMaterial.metalness = 1
+
+cubeMaterial.normalMap = grassTextureNormal
+
+cubeMaterial.displacementMap =  grassTextureHeight
+cubeMaterial.displacementScale = 10
+
 //  cubeMaterial.color = new THREE.Color('red');
 
 //initialize a group
