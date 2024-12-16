@@ -3,8 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 
-// set up
-// And the texture
+// texture offset
  
 
 
@@ -37,8 +36,23 @@ const grassTexture = textureLoader.load("/testures/13.PNG"); // try another text
 
 grassTexture.repeat.set(2,2)
 // grassTexture.wrapS = THREE.RepeatWrapping
-grassTexture.wrapS = THREE.MirroredRepeatWrapping
-grassTexture.wrapT = THREE.MirroredRepeatWrapping
+grassTexture.wrapS = THREE.RepeatWrapping
+grassTexture.wrapT = THREE.RepeatWrapping
+
+// offset
+grassTexture.offset.x= 0.5
+pane.addBinding(grassTexture,"offset", {
+  x:{
+    min:0,
+    max:1,
+    step: 1
+  },
+  y: {
+    min:0,
+    max:1,
+    step: 0.001
+  }
+})
 
 // initialize the material
 // const cubeMaterial = new THREE.MeshStandardMaterial();
