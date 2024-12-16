@@ -53,11 +53,11 @@ scene.add(earth);
 // const pane = new Pane();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
 
-// // create geometyry and mesh
+// create geometyry and mesh
 
-// const cubeGeometry = new THREE.BoxGeometry(1,1,1);
-// const uv2 = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
-// cubeGeometry.setAttribute('uv2',uv2);
+const cubeGeometry = new THREE.BoxGeometry(1,1,1);
+const uv2 = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
+cubeGeometry.setAttribute('uv2',uv2);
 
 
 // const planeGeometry = new THREE.PlaneGeometry(1,1);
