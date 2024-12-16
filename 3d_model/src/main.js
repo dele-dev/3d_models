@@ -3,8 +3,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Pane } from "tweakpane";
 
 
-// Maps : Normal map
-// Hieght Map
+// Maps : anbian-inclussiomn
 
 
 
@@ -25,11 +24,27 @@ const pane = new Pane();
 // create geometyry and mesh
 
 const cubeGeometry = new THREE.BoxGeometry(1,1,1);
-const planeGeometry = new THREE.PlaneGeometry(1,1);
-const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15, 100, 16);
-const spareGeometry = new THREE.SphereGeometry(0.5,32,32);
-const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5,1,32);
+const uv2 = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
+cubeGeometry.setAttribute('uv2',uv2);
 
+
+const planeGeometry = new THREE.PlaneGeometry(1,1);
+const uv2PlaneGeometry = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
+cubeGeometry.setAttribute('uv2',uv2PlaneGeometry);
+
+
+const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5,0.15, 100, 16);
+const uv2TorusKnotGeometry = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
+cubeGeometry.setAttribute('uv2',uv2TorusKnotGeometry);
+
+
+const spareGeometry = new THREE.SphereGeometry(0.5,32,32);
+const uv2SpareGeometry = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
+cubeGeometry.setAttribute('uv2',uv2SpareGeometry);
+
+const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5,1,32);
+const uv2CylinderGeometry = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
+cubeGeometry.setAttribute('uv2',uv2CylinderGeometry);
 
 // initialize the texture
 const grassTexture = textureLoader.load("/testures/14.PNG"); // try another texture
@@ -59,6 +74,9 @@ cubeMaterial.normalMap = grassTextureNormal
 
 cubeMaterial.displacementMap =  grassTextureHeight
 cubeMaterial.displacementScale = 10
+
+cubeMaterial.aoMap = grassTextureAmbientOcclusion
+cubeMaterial.aoMapIntensity = 0.9
 
 //  cubeMaterial.color = new THREE.Color('red');
 
