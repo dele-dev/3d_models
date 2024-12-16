@@ -5,7 +5,7 @@ import { Pane } from "tweakpane";
 
 // Introduction to solar system using three js
 // moving objects along obits
-
+// plant array
 
 
 /***
@@ -30,56 +30,67 @@ const sun = new THREE.Mesh(
 );
 sun.scale.setScalar(5)
 
-//create sun material
-const earthMaterial =  new THREE.MeshBasicMaterial({
-  color:"blue"
-});
-
-const earth = new THREE.Mesh(
-  spareGeometry,
-  earthMaterial
-);
-earth.position.x = 10
-
-
-// create moon 
-const moonMaterial = new THREE.MeshBasicMaterial(
-  {
-    color:"grey"
-  }
-)
-
-// moon 
-const moon = new THREE.Mesh(
-  spareGeometry,
-  moonMaterial
-);
-
-moon.scale.setScalar(0.3)
-moon.position.x = 2
-
-
-
-
-// add moon to earth 
-earth.add(moon)
-
-// sun.add(earth)
 
 // add sun to scene
-// add earth
 scene.add(sun);
-scene.add(earth);
 
+// planet array
+const planets = [
+    {
+      name: 'Mecury',
+      radius: 0.5,
+      distance: 10,
+      speed: 0.01,
+      material: mecuryMaterial
+      moons:[]
+    },
+    {
+      name: 'Venus',
+      radius: 0.8,
+      distance: 15,
+      speed: 0.007,
+      material: venusMaterial
+      moons:[]
+    },
+    {
+      name: 'Earth',
+      radius: 1,
+      distance: 20,
+      speed: 0.005,
+      material: earthMaterial
+      moons:[
+        {
+          name:"Moon",
+          radius: 0.3,
+          distance: 3,
+          speed: 0.015
+        }
+      ]
+    },
+    {
+      name: 'Mars',
+      radius: 0.7,
+      distance: 25,
+      speed: 0.003,
+      material: marsMaterial
+      moons:[
+        {
+          name:"Phobos",
+          radius: 0.1,
+          distance: 2,
+          speed: 0.02
+        },
+        {
+          name:"Deimos",
+          radius: 0.2,
+          distance: 3,
+          speed: 0.015,
+          color: 0xffffff,
+        },
+      ]
+    },
+]
 
-// initialize the light
-const light = new THREE.AmbientLight(0xffffff, 0.4) ;
-scene.add(light);
-
-//  create point light
-const pointLight = new THREE.PointLight(0xffffff, 0.9);
-pointLight.position.set(5,5,5);
-scene.add(pointLight);
 
 // get width and height of the window
 const width_ = window.innerWidth;
@@ -123,23 +134,9 @@ window.addEventListener('resize', () =>{
 });
 
 
-// initialize a clock
-const clock = new THREE.Clock();
-
 // render scence
 function renderLoop () {
 
-    const elapsedTime = clock.getElapsedTime()
-
-  // add animation here
-  earth.rotation.y +=0.01
-
-  earth.position.x = Math.sin(elapsedTime) * 10
-  earth.position.z = Math.cos(elapsedTime) * 10
-
-  moon.position.x - Math.sin(elapsedTime) * 2 
-  moon.position.z - Math.cos(elapsedTime) * 2 
-  
   controls.update();
   // render the scene together with the camera
   renderer.render(scene,camera);
