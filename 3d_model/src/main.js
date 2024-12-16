@@ -50,12 +50,23 @@ cubeGeometry.setAttribute('uv2',uv2CylinderGeometry);
 const grassTexture = textureLoader.load("/testures/14.PNG"); // try another texture
 // const grassTexture1 = textureLoader.load("/testures/12.PNG"); // try another texture
 // const grassTexture2 = textureLoader.load("/testures/13.PNG"); // try another texture
-const grassTextureAmbientOcclusion = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_ambientOcclusion.png"); // try another texture
-const grassTextureRoughness = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_roughness.png"); // try another texture
-const grassTextureMetallic= textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_metallic.png"); // try another texture
-const grassTextureBase = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_basecolor.png"); // try another texture
-const grassTextureHeight = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_height.png"); // try another texture
-const grassTextureNormal = textureLoader.load("/testures/3d_model/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_normal.png"); // try another texture
+const grassTextureAmbientOcclusion = textureLoader.load("/testures/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_ambientOcclusion.png"); // try another texture
+const grassTextureRoughness = textureLoader.load("/testures/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_roughness.png"); // try another texture
+const grassTextureMetallic= textureLoader.load("/testures/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_metallic.png"); // try another texture
+const grassTextureBase = textureLoader.load("/testures/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_basecolor.png"); // try another texture
+const grassTextureHeight = textureLoader.load("/testures/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_height.png"); // try another texture
+const grassTextureNormal = textureLoader.load("/testures/Stylized_Wood_Floor_001_SD/Stylized_Wood_Floor_001_normal.png"); // try another texture
+
+
+
+// initialize the texture
+const woodTexture = textureLoader.load("/testures/Stylized_Metal_Shingles_001_SD/untitled2.png"); // try another texture
+const woodTextureAmbientOcclusion = textureLoader.load("/testures/Stylized_Metal_Shingles_001_SD/Stylized_Metal_Shingles_001_ambientOcclusion.png"); // try another texture
+const woodTextureRoughness = textureLoader.load("/testures/Stylized_Metal_Shingles_001_SD/Stylized_Metal_Shingles_001_roughness.png"); // try another texture
+const woodTextureMetallic= textureLoader.load("/testures/Stylized_Metal_Shingles_001_SD/Stylized_Metal_Shingles_001_metallic.png"); // try another texture
+const woodTextureBase = textureLoader.load("/testures/Stylized_Metal_Shingles_001_SD/Stylized_Metal_Shingles_001_basecolor.png"); // try another texture
+const woodTextureHeight = textureLoader.load("/testures/Stylized_Metal_Shingles_001_SD/Stylized_Metal_Shingles_001_height.png"); // try another texture
+const woodTextureNormal = textureLoader.load("/testures/Stylized_Metal_Shingles_001_SD/Stylized_Metal_Shingles_001_normal.png"); // try another texture
 
 
 
@@ -72,11 +83,30 @@ cubeMaterial.metalness = 1
 
 cubeMaterial.normalMap = grassTextureNormal
 
-cubeMaterial.displacementMap =  grassTextureHeight
-cubeMaterial.displacementScale = 10
+// cubeMaterial.displacementMap =  grassTextureHeight
+// cubeMaterial.displacementScale = 10
 
 cubeMaterial.aoMap = grassTextureAmbientOcclusion
-cubeMaterial.aoMapIntensity = 0.9
+cubeMaterial.aoMapIntensity = 0.99
+
+
+// initialize the wood material
+const woodMaterial = new THREE.MeshStandardMaterial();
+// const cubeMaterial = new THREE.MeshBasicMaterial();
+woodMaterial.map =  woodTexture
+woodMaterial.roughnessMap = woodTextureRoughness
+woodMaterial.roughness = 1
+
+woodMaterial.metalnessMap =  woodTextureMetallic
+woodMaterial.metalness = 1
+
+woodMaterial.normalMap = woodTextureNormal
+
+
+woodMaterial.aoMap = woodTextureAmbientOcclusion
+woodMaterial.aoMapIntensity = 0.99
+
+
 
 //  cubeMaterial.color = new THREE.Color('red');
 
@@ -111,7 +141,7 @@ sphere.position.y = 1.5
 
 const cylinder = new THREE.Mesh();
 cylinder.geometry = cylinderGeometry;
-cylinder.material = cubeMaterial;
+cylinder.material = woodMaterial;
 cylinder.position.y = -1.5
 
 
