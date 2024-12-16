@@ -25,7 +25,7 @@ const sunMaterial =  new THREE.MeshBasicMaterial({
 
 const sun = new THREE.Mesh(
   spareGeometry,
-  sunMaterial
+    sunMaterial
 );
 sun.scale.setScalar(5)
 
@@ -41,6 +41,28 @@ const earth = new THREE.Mesh(
 earth.position.x = 10
 
 
+// create moon 
+const moonMaterial = new THREE.MeshBasicMaterial(
+  {
+    color:"grey"
+  }
+)
+
+// moon 
+const moon = new THREE.Mesh(
+  spareGeometry,
+  moonMaterial
+);
+
+moon.scale.setScalar(0.3)
+moon.position.x = 2
+
+
+
+
+// add moon to earth 
+earth.add(moon)
+
 // add sun to scene
 // add earth
 scene.add(sun);
@@ -55,9 +77,9 @@ scene.add(earth);
 
 // create geometyry and mesh
 
-const cubeGeometry = new THREE.BoxGeometry(1,1,1);
-const uv2 = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
-cubeGeometry.setAttribute('uv2',uv2);
+// const cubeGeometry = new THREE.BoxGeometry(1,1,1);
+// const uv2 = new THREE.BufferAttribute(cubeGeometry.attributes.uv.array, 2);
+// cubeGeometry.setAttribute('uv2',uv2);
 
 
 // const planeGeometry = new THREE.PlaneGeometry(1,1);
