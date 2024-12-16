@@ -19,7 +19,7 @@ const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 
 //initialize the pane
-const pane = new Pane();
+const pane = new Pane();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
 
 // create geometyry and mesh
@@ -32,12 +32,18 @@ const cylinderGeometry = new THREE.CylinderGeometry(0.5,0.5,1,32);
 
 
 // initialize the texture
-const textureTest = textureLoader.load("/testures/14.PNG");
+// const grassTexture = textureLoader.load("/testures/14.PNG"); // try another texture
+const grassTexture = textureLoader.load("/testures/13.PNG"); // try another texture
+
+grassTexture.repeat.set(2,2)
+// grassTexture.wrapS = THREE.RepeatWrapping
+grassTexture.wrapS = THREE.MirroredRepeatWrapping
+grassTexture.wrapT = THREE.MirroredRepeatWrapping
 
 // initialize the material
 // const cubeMaterial = new THREE.MeshStandardMaterial();
 const cubeMaterial = new THREE.MeshBasicMaterial();
- cubeMaterial.map =  textureTest
+ cubeMaterial.map =  grassTexture
 //  cubeMaterial.color = new THREE.Color('red');
 
 //initialize a group
@@ -63,7 +69,8 @@ const plane = new THREE.Mesh(
   cubeMaterial
 );
 plane.position.x = -1.5;
-plane.rotation.x = Math.PI * 0.5;
+plane.rotation.x = -(Math.PI * 0.5);
+plane.scale.set(1000,1000)
 
 const sphere = new THREE.Mesh();
 sphere.geometry = spareGeometry;
@@ -96,13 +103,14 @@ const width_ = window.innerWidth;
 const height_ = window.innerHeight;
 
 // initialize the camera
-const camera = new THREE.PerspectiveCamera(45,
+const camera = new THREE.PerspectiveCamera(35,
   width_/height_,
   0.12,
-  45
+  2000
 );
 
-camera.position.z = 5 ;
+camera.position.z = 10 ;
+camera.position.y = 5
 
 // add camera to scene
 scene.add(camera);
