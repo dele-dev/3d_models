@@ -9,7 +9,7 @@ import { Pane } from "tweakpane";
 // adding helper function and add texture loader
 // automating mesh generation
 // animating planets 
-
+// final touches on light and add background  url  { https://polyhaven.com/hdris , https://matheowis.github.io/HDRI-to-CubeMap/ } 
 
 
 /***
@@ -23,6 +23,8 @@ const scene = new THREE.Scene();
 
 // add texttureLoader
 const texttureLoader = new THREE.TextureLoader();
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+cubeTextureLoader.setPath("/testures/cubeMap/")
 
 
 // adding texttures to materials
@@ -32,6 +34,18 @@ const venusTexture = texttureLoader.load("/testures/4k_venus_atmosphere.jpg"); /
 const earthTexture = texttureLoader.load("/testures/2k_earth_daymap.jpg"); // earth texture
 const marsTexture = texttureLoader.load("/testures/2k_mars.jpg"); // mars texture
 const moonTexture = texttureLoader.load("/testures/2k_moon.jpg"); // moon texture
+
+const backgroundCubemap = cubeTextureLoader.load([
+    "px.png",
+    "nx.png",
+    "py.png",
+    "ny.png",
+    "pz.png",
+    "nz.png"
+]);
+
+
+scene.background = backgroundCubemap
 
 // add stuff to our scene
 const spareGeometry = new THREE.SphereGeometry(1, 32, 32);
@@ -193,12 +207,14 @@ const width_ = window.innerWidth;
 const height_ = window.innerHeight;
 
 
-// add lights to scene
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+// // add lights to scene
+// const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 
 
-// add light to scene
-scene.add(ambientLight);
+const pointLight = new THREE.PointLight(0xffffff, 15);
+
+// // add light to scene
+scene.add(pointLight);
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(35,
