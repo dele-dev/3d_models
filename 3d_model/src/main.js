@@ -9,7 +9,7 @@ import { Pane } from "tweakpane";
 // adding helper function and add texture loader
 // automating mesh generation
 // animating planets 
-// final touches on light and add background  url  { https://polyhaven.com/hdris , https://matheowis.github.io/HDRI-to-CubeMap/ } 
+// final touches on light and add background  url  { https://polyhaven.com/hdris , https://matheowis.github.io/HDRI-to-CubeMap/ }  // upload to git
 
 
 /***
