@@ -7,7 +7,7 @@ import { Pane } from "tweakpane";
 // moving objects along obits
 // plant array
 // adding helper function and add texture loader
-
+// automating mesh generation
 
 
 /***
@@ -24,19 +24,18 @@ const texttureLoader = new THREE.TextureLoader();
 
 
 // adding texttures to materials
-const sunTexture = texttureLoader.load("/testures/14.PNG"); // to be replaced with sun texture
-const mecuryTexture = texttureLoader.load("/testures/12.PNG"); // to be replaced with mecury texture
-const venusTexture = texttureLoader.load("/testures/13.PNG"); // to be replaced with venus texture
-const earthTexture = texttureLoader.load("/testures/12.PNG"); // to be replaced with earth texture
-const marsTexture = texttureLoader.load("/testures/13.PNG"); // to be replaced with mars texture
-const moonTexture = texttureLoader.load("/testures/14.PNG"); // to be replaced with moon texture
+const sunTexture = texttureLoader.load("/testures/sun.jpg"); // sun texture
+const mecuryTexture = texttureLoader.load("/testures/2k_mercury.jpg"); // mecury texture
+const venusTexture = texttureLoader.load("/testures/4k_venus_atmosphere.jpg"); // venus texture
+const earthTexture = texttureLoader.load("/testures/2k_earth_daymap.jpg"); // earth texture
+const marsTexture = texttureLoader.load("/testures/2k_mars.jpg"); // mars texture
+const moonTexture = texttureLoader.load("/testures/2k_moon.jpg"); // moon texture
 
 // add stuff to our scene
 const spareGeometry = new THREE.SphereGeometry(1, 32, 32);
 
 //create sun material
 const sunMaterial =  new THREE.MeshBasicMaterial({
-  color:0xfff700,
   map:sunTexture
 });
 
@@ -70,7 +69,7 @@ const marsMaterial =  new THREE.MeshStandardMaterial({
 
 //create sun material
 const moonMaterial =  new THREE.MeshStandardMaterial({
-  map:marsTexture
+  map:moonTexture
 });
 
 
@@ -136,9 +135,68 @@ const planets = [
 ]
 
 
+
+const createPlanet = (planet) => {
+  // create Mesh and add it to the scene
+
+      // create mesh
+      const planetMesh = new THREE.Mesh(
+        spareGeometry,
+        planet.material
+      );
+      // set planet scale
+      planetMesh.scale.setScalar(planet.radius)
+
+      // set planet position
+      planetMesh.position.x = planet.distance
+
+      return planetMesh;
+  
+}
+
+const createMoon = (moon) => {
+  // create Mesh and add it to the planet
+    
+      // add to planet
+      const moonMesh = new THREE.Mesh(
+        spareGeometry,
+        moonMaterial
+      )
+      moonMesh.scale.setScalar(moon.radius)
+      moonMesh.position.x = moon.distance ;
+
+
+    return moonMesh
+
+}
+
+const planetMeshes = planets.map((planet) => {
+
+    const planetMesh = createPlanet (planet);
+    // add it to scene
+    scene.add(planetMesh)
+
+    // loop through moons if exist create the moon 
+    planet.moons.forEach((moon) => {
+          const moonMesh = createMoon(moon);
+
+          planetMesh.add(moonMesh)
+    });
+
+    return planetMesh
+});
+
 // get width and height of the window
 const width_ = window.innerWidth;
 const height_ = window.innerHeight;
+
+
+// add lights to scene
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+
+
+// add light to scene
+scene.add(ambientLight);
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(35,
