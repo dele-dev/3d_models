@@ -6,6 +6,8 @@ import { Pane } from "tweakpane";
 // Introduction to solar system using three js
 // moving objects along obits
 // plant array
+// adding helper function and add texture loader
+
 
 
 /***
@@ -16,19 +18,61 @@ import { Pane } from "tweakpane";
 const scene = new THREE.Scene();
 
 
+
+// add texttureLoader
+const texttureLoader = new THREE.TextureLoader();
+
+
+// adding texttures to materials
+const sunTexture = texttureLoader.load("/testures/14.PNG"); // to be replaced with sun texture
+const mecuryTexture = texttureLoader.load("/testures/12.PNG"); // to be replaced with mecury texture
+const venusTexture = texttureLoader.load("/testures/13.PNG"); // to be replaced with venus texture
+const earthTexture = texttureLoader.load("/testures/12.PNG"); // to be replaced with earth texture
+const marsTexture = texttureLoader.load("/testures/13.PNG"); // to be replaced with mars texture
+const moonTexture = texttureLoader.load("/testures/14.PNG"); // to be replaced with moon texture
+
 // add stuff to our scene
 const spareGeometry = new THREE.SphereGeometry(1, 32, 32);
 
 //create sun material
 const sunMaterial =  new THREE.MeshBasicMaterial({
-  color:0xfff700
+  color:0xfff700,
+  map:sunTexture
 });
+
 
 const sun = new THREE.Mesh(
   spareGeometry,
     sunMaterial
 );
 sun.scale.setScalar(5)
+
+
+//create sun material
+const mecuryMaterial =  new THREE.MeshStandardMaterial({
+  map:mecuryTexture
+});
+
+//create sun material
+const venusMaterial =  new THREE.MeshStandardMaterial({
+  map:venusTexture
+});
+
+//create sun material
+const earthMaterial =  new THREE.MeshStandardMaterial({
+  map:earthTexture
+});
+
+//create sun material
+const marsMaterial =  new THREE.MeshStandardMaterial({
+  map:marsTexture
+});
+
+//create sun material
+const moonMaterial =  new THREE.MeshStandardMaterial({
+  map:marsTexture
+});
+
 
 
 // add sun to scene
@@ -41,7 +85,7 @@ const planets = [
       radius: 0.5,
       distance: 10,
       speed: 0.01,
-      material: mecuryMaterial
+      material: mecuryMaterial,
       moons:[]
     },
     {
@@ -49,7 +93,7 @@ const planets = [
       radius: 0.8,
       distance: 15,
       speed: 0.007,
-      material: venusMaterial
+      material: venusMaterial,
       moons:[]
     },
     {
@@ -57,7 +101,7 @@ const planets = [
       radius: 1,
       distance: 20,
       speed: 0.005,
-      material: earthMaterial
+      material: earthMaterial,
       moons:[
         {
           name:"Moon",
@@ -72,7 +116,7 @@ const planets = [
       radius: 0.7,
       distance: 25,
       speed: 0.003,
-      material: marsMaterial
+      material: marsMaterial,
       moons:[
         {
           name:"Phobos",
