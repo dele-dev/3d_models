@@ -8,6 +8,8 @@ import { Pane } from "tweakpane";
 // plant array
 // adding helper function and add texture loader
 // automating mesh generation
+// animating planets 
+
 
 
 /***
@@ -238,6 +240,10 @@ window.addEventListener('resize', () =>{
 
 // render scence
 function renderLoop () {
+
+  planetMeshes.forEach((planet) => {
+    planet.rotation.y += 0.01
+  })
 
   controls.update();
   // render the scene together with the camera
